@@ -1,0 +1,30 @@
+name: cloudgallery
+description: A Google Photos-style cloud gallery built with Flutter and Firebase.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  firebase_core: ^4.1.0
+  firebase_auth: ^6.0.2
+  cloud_firestore: ^6.0.1
+  firebase_storage: ^13.0.1
+  flutter_riverpod: ^2.6.1
+  image_picker: ^1.2.0
+  cached_network_image: ^3.4.1
+  intl: ^0.20.2
+  share_plus: ^11.1.0
+  uuid: ^4.5.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

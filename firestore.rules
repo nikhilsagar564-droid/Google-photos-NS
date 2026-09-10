@@ -1,0 +1,35 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      allow create: if isOwner(uid);
+      allow update: if isOwner(uid);
+      allow delete: if isOwner(uid);
+
+      match /media/{mediaId} {
+        allow read: if isOwner(uid);
+
+        allow create: if isOwner(uid)
+          && request.resource.data.storagePath is string
+          && request.resource.data.url is string
+          && request.resource.data.name is string;
+
+        allow update: if isOwner(uid)
+          && request.resource.data.diff(resource.data).affectedKeys()
+              .hasOnly(['favorite', 'trashed', 'location', 'labels', 'name']);
+
+        allow delete: if isOwner(uid);
+      }
+    }
+  }
+}
